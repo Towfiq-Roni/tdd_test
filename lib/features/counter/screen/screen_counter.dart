@@ -4,6 +4,8 @@ import 'package:tdd_test/features/counter/bloc/counter_bloc.dart';
 import 'package:tdd_test/features/counter/widgets/decrement_button.dart';
 import 'package:tdd_test/features/counter/widgets/increment_button.dart';
 import 'package:tdd_test/features/counter/widgets/reset_button.dart';
+import 'package:tdd_test/res/res_export.dart';
+import 'package:tdd_test/services/navigation/navigation_service.dart';
 
 class CounterPage extends StatefulWidget {
   const CounterPage({super.key});
@@ -58,6 +60,8 @@ class _CounterPageState extends State<CounterPage> {
                 const SizedBox(height: 24),
               ],
               buildButtons(context),
+              const SizedBox(height: 24),
+              navigateToButton(context),
             ],
           );
         },
@@ -73,6 +77,16 @@ class _CounterPageState extends State<CounterPage> {
         ResetButton(),
         IncrementButton(),
       ],
+    );
+  }
+
+  ElevatedButton navigateToButton(BuildContext context) {
+    return ElevatedButton(
+      key: const Key('navigate_key'),
+      onPressed: () {
+        NavigationService.navigateTo(RoutePaths.authenticationScreen);
+      },
+      child: const Text('Jump To Authentication'),
     );
   }
 }

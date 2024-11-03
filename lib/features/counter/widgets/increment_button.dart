@@ -10,6 +10,7 @@ class IncrementButton extends StatelessWidget {
     return BlocBuilder<CounterBloc, CounterState>(
       builder: (context, state) {
         return ElevatedButton(
+          key: const Key('increment_key'),
           onPressed: () {
             context.read<CounterBloc>().add(const IncrementCounter());
           },

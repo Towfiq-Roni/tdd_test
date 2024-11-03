@@ -10,6 +10,7 @@ class DecrementButton extends StatelessWidget {
     return BlocBuilder<CounterBloc, CounterState>(
       builder: (context, state) {
         return ElevatedButton(
+          key: const Key('decrement_key'),
           onPressed: () {
             context.read<CounterBloc>().add(const DecrementCounter());
           },

@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tdd_test/core/domain/dependency_injection/service_locator.dart';
 import 'package:tdd_test/features/counter/bloc/counter_bloc.dart';
 import 'package:tdd_test/features/counter/screen/screen_counter.dart';
+import 'package:tdd_test/res/routes/app_router.dart';
+import 'package:tdd_test/services/navigation/navigation_service.dart';
 
 void main() {
   ServiceLocator().init();
@@ -34,6 +36,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      navigatorKey: NavigationService.navigatorKey,
+      onGenerateRoute: AppRouter.generateRoute,
       title: 'Flutter Demo',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),

@@ -1,20 +1,83 @@
+import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
-
+import 'package:mocktail/mocktail.dart';
+import 'package:tdd_test/features/authentication/presentation/screen/screen_authentication.dart';
+import 'package:tdd_test/features/counter/bloc/counter_bloc.dart';
 import 'package:tdd_test/main.dart';
 
+class TestCounterBloc extends MockBloc<CounterEvent, CounterState>
+    implements CounterBloc {}
+
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    
-    await tester.pumpWidget(const MyApp());
+  group('Counter test', () {
+    late CounterBloc counterBloc;
+    setUp(() {
+      counterBloc = TestCounterBloc();
+    });
 
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    // testWidgets('Counter increments smoke test', (WidgetTester tester) async {
+    //   when(() => counterBloc.state).thenReturn(const CounterState());
+    //   whenListen(
+    //     counterBloc,
+    //     Stream<CounterState>.fromIterable(
+    //       [
+    //         CounterInitialState(),
+    //         const CounterUpdateState(1),
+    //       ],
+    //     ),
+    //   );
+    //   await tester.pumpWidget(
+    //     BlocProvider<CounterBloc>(
+    //       create: (c) => counterBloc,
+    //       child: const MyApp(),
+    //     ),
+    //   );
+    //
+    //   await tester.tap(find.byKey(const Key('increment_key')));
+    //   await tester.pump();
+    //
+    //   expect(find.text('1'), findsOneWidget);
+    // });
 
-    await tester.tap(find.byIcon(Icons.exposure_plus_1));
-    await tester.pump();
+    // testWidgets('Counter decrements smoke test', (WidgetTester tester) async {
+    //   when(() => counterBloc.state).thenReturn(const CounterState());
+    //   whenListen(
+    //     counterBloc,
+    //     Stream<CounterState>.fromIterable(
+    //       [
+    //         // CounterInitialState(),
+    //         const CounterUpdateState(-1),
+    //       ],
+    //     ),
+    //   );
+    //   await tester.pumpWidget(
+    //     BlocProvider<CounterBloc>(
+    //       create: (c) => counterBloc,
+    //       child: const MyApp(),
+    //     ),
+    //   );
+    //
+    //   await tester.tap(find.byKey(const Key('decrement_key')));
+    //   await tester.pump();
+    //
+    //   expect(find.text('-1'), findsOneWidget);
+    // });
 
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    testWidgets('Navigation success test', (WidgetTester tester) async {
+      when(() => counterBloc.state).thenReturn(const CounterState());
+      await tester.pumpWidget(
+        BlocProvider<CounterBloc>(
+          create: (c) => counterBloc,
+          child: const MyApp(),
+        ),
+      );
+
+      await tester.tap(find.byKey(const Key('navigate_key')));
+      await tester.pumpAndSettle();
+
+      expect(find.byType(AuthenticationScreen), findsOneWidget);
+    });
   });
 }

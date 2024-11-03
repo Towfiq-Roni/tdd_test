@@ -10,6 +10,7 @@ class ResetButton extends StatelessWidget {
     return BlocBuilder<CounterBloc, CounterState>(
       builder: (context, state) {
         return ElevatedButton(
+          key: const Key('reset_key'),
           onPressed: () {
             context.read<CounterBloc>().add(const ResetCounter());
           },

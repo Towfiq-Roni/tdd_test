@@ -31,9 +31,14 @@ void main() {
     });
 
     test('empty test', () async {
+      final file = File(
+          '/home/towfiq/AndroidStudioProjects/tdd_test/test/lib/features_test/authentication_test/data/response/mock_empty_post_response.json');
+      final json = jsonDecode(await (file.readAsString()));
       when(mockApiClient.invokeApi(apiUrl.getPostList, HTTPType.get))
-          .thenAnswer((_) => []);
-      expect([], isEmpty);
+          .thenAnswer((_) => json);
+      final getPosts = await dataSource.getPosts();
+      final expected = json;
+      expect(getPosts, expected);
     });
 
     test('fail test', () async {

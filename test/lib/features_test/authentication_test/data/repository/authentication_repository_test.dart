@@ -3,36 +3,42 @@ import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-// import 'package:mocktail/mocktail.dart';
 import 'package:tdd_test/core/data/data_export.dart';
-import 'package:tdd_test/features/authentication/data/datasource/authentication_http_datasource/authentication_http_datasource_impl.dart';
+import 'package:tdd_test/features/authentication/data/datasource/authentication_http_datasource/authentication_http_datasource.dart';
+import 'package:tdd_test/features/authentication/data/model/post_list_model.dart';
+import 'package:tdd_test/features/authentication/data/repository/authentication_repository_impl.dart';
 
 import '../../../../core/data/http/client/mock_api_client.dart';
 
+class MockAuthenticationHttpDataSource extends Mock
+    implements AuthenticationHttpDataSource {}
+
 void main() {
-  group('post list GET api call ', () {
-    late AuthenticationHttpDataSourceImpl dataSource;
+  group('post list repository ', () {
+    late AuthenticationHttpDataSource dataSource;
+    late AuthenticationRepositoryImpl repository;
     late ApiClient mockApiClient;
 
     setUp(() {
       mockApiClient = MockApiClient();
-      dataSource = AuthenticationHttpDataSourceImpl(mockApiClient);
+      dataSource = MockAuthenticationHttpDataSource();
+      repository = AuthenticationRepositoryImpl(dataSource);
     });
 
     test('pass test', () async {
       final file = File(
           '/home/towfiq/AndroidStudioProjects/tdd_test/test/lib/features_test/authentication_test/data/response/mock_pass_post_response.json');
       final json = jsonDecode(await (file.readAsString()));
-      when(mockApiClient.invokeApi(apiUrl.getPostList, HTTPType.get))
-          .thenAnswer((_) => json);
-      final getPosts = await dataSource.getPosts();
-      final expected = json;
+      when(dataSource.getPosts()).thenAnswer((_) => json);
+      // when(mockApiClient.invokeApi(apiUrl.getPostList, HTTPType.get))
+      //     .thenAnswer((_) => json);
+      final getPosts = await repository.getPosts();
+      final expected = PostListModel.fromJson(json);
       expect(getPosts, expected);
     });
 
     test('empty test', () async {
-      when(mockApiClient.invokeApi(apiUrl.getPostList, HTTPType.get))
-          .thenAnswer((_) => []);
+      when(dataSource.getPosts()).thenAnswer((_) => []);
       expect([], isEmpty);
     });
 
@@ -43,10 +49,9 @@ void main() {
       final failFile = File(
           '/home/towfiq/AndroidStudioProjects/tdd_test/test/lib/features_test/authentication_test/data/response/mock_fail_post_response.json');
       final failJson = jsonDecode(await (failFile.readAsString()));
-      when(mockApiClient.invokeApi(apiUrl.getPostList, HTTPType.get))
-          .thenAnswer((_) => failJson);
+      when(dataSource.getPosts()).thenAnswer((_) => failJson);
       final getPosts = await dataSource.getPosts();
-      final expected = passJson;
+      final expected = PostListModel.fromJson(passJson);
       expect(getPosts, isNot(expected));
     });
   });

@@ -82,11 +82,11 @@ class _CounterPageState extends State<CounterPage> {
 
   ElevatedButton navigateToButton(BuildContext context) {
     return ElevatedButton(
-      key: const Key('navigate_key'),
+      key: const Key('navigate_home_key'),
       onPressed: () {
-        NavigationService.navigateTo(RoutePaths.authenticationScreen);
+        NavigationService.navigateTo(RoutePaths.homeScreen);
       },
-      child: const Text('Jump To Authentication'),
+      child: const Text('Jump To Home Screen'),
     );
   }
 }

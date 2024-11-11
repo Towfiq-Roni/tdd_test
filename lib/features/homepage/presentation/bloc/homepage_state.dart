@@ -1,6 +1,27 @@
 part of 'homepage_bloc.dart';
 
-@immutable
-sealed class HomepageState {}
+class HomepageState extends Equatable {
+  final StateStatus status;
+  final int? itemValue;
 
-final class HomepageInitial extends HomepageState {}
+  const HomepageState({
+    this.status = StateStatus.initial,
+    this.itemValue,
+  });
+
+  HomepageState copyWith({
+    StateStatus? status,
+    int? itemValue,
+  }) {
+    return HomepageState(
+      status: status ?? this.status,
+      itemValue: itemValue ?? this.itemValue,
+    );
+  }
+
+  @override
+  List<Object?> get props => [
+        status,
+        itemValue,
+      ];
+}

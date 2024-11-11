@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:tdd_test/features/authentication/presentation/screen/screen_authentication.dart';
 import 'package:tdd_test/features/counter/bloc/counter_bloc.dart';
+import 'package:tdd_test/features/homepage/presentation/screen/screen_homepage.dart';
 import 'package:tdd_test/main.dart';
 
 class TestCounterBloc extends MockBloc<CounterEvent, CounterState>
@@ -74,10 +74,10 @@ void main() {
         ),
       );
 
-      await tester.tap(find.byKey(const Key('navigate_key')));
+      await tester.tap(find.byKey(const Key('navigate_home_key')));
       await tester.pumpAndSettle();
 
-      expect(find.byType(AuthenticationScreen), findsOneWidget);
+      expect(find.byType(ScreenHomepage), findsOneWidget);
     });
   });
 }

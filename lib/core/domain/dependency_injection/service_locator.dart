@@ -17,8 +17,8 @@ class ServiceLocator {
   // void register<T>(T instance) {
   //   _factories[T] = instance;
   // }
-  
-  init() {
+
+  void init() {
     _registerBloc();
   }
 

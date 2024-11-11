@@ -3,12 +3,9 @@ import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-import 'package:tdd_test/core/data/data_export.dart';
 import 'package:tdd_test/features/authentication/data/datasource/authentication_http_datasource/authentication_http_datasource.dart';
 import 'package:tdd_test/features/authentication/data/model/post_list_model.dart';
 import 'package:tdd_test/features/authentication/data/repository/authentication_repository_impl.dart';
-
-import '../../../../core/data/http/client/mock_api_client.dart';
 
 class MockAuthenticationHttpDataSource extends Mock
     implements AuthenticationHttpDataSource {}
@@ -17,10 +14,8 @@ void main() {
   group('post list repository ', () {
     late AuthenticationHttpDataSource dataSource;
     late AuthenticationRepositoryImpl repository;
-    late ApiClient mockApiClient;
 
     setUp(() {
-      mockApiClient = MockApiClient();
       dataSource = MockAuthenticationHttpDataSource();
       repository = AuthenticationRepositoryImpl(dataSource);
     });
@@ -50,7 +45,7 @@ void main() {
           '/home/towfiq/AndroidStudioProjects/tdd_test/test/lib/features_test/authentication_test/data/response/mock_fail_post_response.json');
       final failJson = jsonDecode(await (failFile.readAsString()));
       when(dataSource.getPosts()).thenAnswer((_) => failJson);
-      final getPosts = await dataSource.getPosts();
+      final getPosts = await repository.getPosts();
       final expected = PostListModel.fromJson(passJson);
       expect(getPosts, isNot(expected));
     });

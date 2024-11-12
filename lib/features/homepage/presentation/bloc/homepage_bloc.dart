@@ -20,6 +20,6 @@ class HomepageBloc extends Bloc<HomepageEvent, HomepageState> {
 
   Future<void> _navigate(
       NavigateEvent event, Emitter<HomepageState> emit) async {
-    NavigationService.navigateTo(RoutePaths.authenticationScreen);
+    NavigationService.navigateTo(RoutePaths.listScreen);
   }
 }

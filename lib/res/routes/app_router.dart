@@ -1,14 +1,14 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:tdd_test/features/authentication/presentation/screen/screen_authentication.dart';
 import 'package:tdd_test/features/counter/screen/screen_counter.dart';
 import 'package:tdd_test/features/homepage/presentation/screen/screen_homepage.dart';
+import 'package:tdd_test/features/list/presentation/screen/screen_list.dart';
 import 'package:tdd_test/res/routes/route_paths.dart';
 
 class AppRouter {
   static final widgetMap = <String, Widget Function(RouteSettings)>{
-    RoutePaths.authenticationScreen: (settings) => const AuthenticationScreen(),
+    RoutePaths.listScreen: (settings) => const ListScreen(),
     RoutePaths.counterScreen: (settings) => const CounterPage(),
     RoutePaths.homeScreen: (settings) => const ScreenHomepage(),
   };

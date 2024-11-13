@@ -8,7 +8,8 @@ class GetPostList extends UseCaseWithoutParams<PostListEntity> {
   GetPostList(this.repository);
 
   @override
-  Future<PostListEntity> call() {
-    return repository.getPosts();
+  Future<PostListEntity> call() async {
+    var list = await repository.getPosts();
+    return list;
   }
 }

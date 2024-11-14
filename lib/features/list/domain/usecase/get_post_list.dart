@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:tdd_test/core/domain/usecase/usecase.dart';
 import 'package:tdd_test/features/list/domain/entity/post_list_entity.dart';
 import 'package:tdd_test/features/list/domain/repository/list_repository.dart';
@@ -8,8 +10,12 @@ class GetPostList extends UseCaseWithoutParams<PostListEntity> {
   GetPostList(this.repository);
 
   @override
-  Future<PostListEntity> call() async {
-    var list = await repository.getPosts();
-    return list;
+  FutureOr<PostListEntity?> call() async {
+    try {
+      var list = await repository.getPosts();
+      return list;
+    } on Exception catch (e) {
+      return null;
+    }
   }
 }

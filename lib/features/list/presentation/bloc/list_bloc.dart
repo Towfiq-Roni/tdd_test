@@ -22,6 +22,7 @@ class ListBloc extends Bloc<ListEvent, ListState> {
       if (getList?.postList == null || getList!.postList!.isEmpty) {
         emit(state.copyWith(
             status: StateStatus.error, message: INVALID_MESSAGE));
+        return;
       }
       emit(state.copyWith(
         postList: getList,

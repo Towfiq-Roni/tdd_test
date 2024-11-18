@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
+import 'package:tdd_test/app/configs/app_config.dart';
 
 import '../interceptors/api_provider_token_interceptor.dart';
 
@@ -11,7 +12,7 @@ class DioClient {
 
   Dio dio = Dio(
     BaseOptions(
-      baseUrl: "appConfig.apiBaseUrl",
+      baseUrl: appConfig.apiBaseUrl,
       connectTimeout: const Duration(seconds: 60),
       sendTimeout: const Duration(seconds: 60),
       receiveTimeout: const Duration(seconds: 60),
@@ -30,7 +31,7 @@ class DioClient {
   }
 
   setClient() {
-    debugPrint("=================setClient====================");
+    debugPrint('=================setClient====================');
     dio
       ..interceptors.add(ApiProviderTokenInterceptor())
       ..interceptors.add(PrettyDioLogger(

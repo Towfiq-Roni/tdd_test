@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tdd_test/app/configs/boot_config.dart';
+import 'package:tdd_test/app/configs/boot_settings.dart';
 import 'package:tdd_test/core/domain/dependency_injection/service_locator.dart';
 import 'package:tdd_test/features/counter/bloc/counter_bloc.dart';
 import 'package:tdd_test/features/counter/screen/screen_counter.dart';
+import 'package:tdd_test/features/list/presentation/bloc/list_bloc.dart';
 import 'package:tdd_test/res/routes/app_router.dart';
 import 'package:tdd_test/services/navigation/navigation_service.dart';
 
 void main() {
-  ServiceLocator().init();
-  runApp(const AppBlocProvider());
+  bootstrap((BootSettings? bootSettings) {
+    return const AppBlocProvider();
+  });
 }
 
 class AppBlocProvider extends StatefulWidget {
@@ -24,7 +28,10 @@ class _AppBlocProviderState extends State<AppBlocProvider> {
       providers: [
         BlocProvider(
           create: (context) => serviceLocator<CounterBloc>(),
-        )
+        ),
+        BlocProvider(
+          create: (context) => serviceLocator<ListBloc>(),
+        ),
       ],
       child: const MyApp(),
     );

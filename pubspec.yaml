@@ -50,3 +50,4 @@ flutter:
     - assets/mocks/
     - assets/pngs/
     - assets/svgs/
+    - .env

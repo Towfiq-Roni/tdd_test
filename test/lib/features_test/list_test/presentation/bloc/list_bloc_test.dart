@@ -24,7 +24,11 @@ void main() {
     });
 
     test('initial state empty test', () {
-      expect(bloc.state.status, StateStatus.initial);
+      final expected = predicate<ListState>((state) =>
+          state.status == StateStatus.initial &&
+          state.postList == null &&
+          state.message == null);
+      expect(bloc.state, expected);
     });
 
     test('pass test', () async {

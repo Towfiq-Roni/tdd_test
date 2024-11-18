@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 
 class PostListEntity extends Equatable {
-  final List<PostEntity>? postList;
+  final List<PostEntity?>? postList;
 
   const PostListEntity({
     this.postList,
@@ -25,6 +25,15 @@ class PostEntity extends Equatable {
     this.title,
     this.body,
   });
+
+  PostEntity emptyState() {
+    return const PostEntity(
+      userId: 0,
+      id: 0,
+      title: 'Empty',
+      body: 'Empty',
+    );
+  }
 
   @override
   List<Object?> get props => [

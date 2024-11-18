@@ -1,7 +1,18 @@
 import 'package:flutter/material.dart';
 
-class ListScreen extends StatelessWidget {
+class ListScreen extends StatefulWidget {
   const ListScreen({super.key});
+
+  @override
+  State<ListScreen> createState() => _ListScreenState();
+}
+
+class _ListScreenState extends State<ListScreen> {
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   context.read<ListBloc>().add(GetListEvent());
+  // }
 
   @override
   Widget build(BuildContext context) {

@@ -24,8 +24,8 @@ void main() {
     test('pass test', () async {
       final file = File(GetMockResponse.passJsonFile);
       final dynamic json = await (file.readAsString());
-      when(dataSource.getPosts()).thenReturn(json);
       final decoded = jsonDecode(json);
+      when(dataSource.getPosts()).thenReturn(decoded);
       final getPosts = await repository.getPosts();
       final expected = (decoded as List<dynamic>)
           .map((json) => PostListModel.fromJson(json))
@@ -36,8 +36,8 @@ void main() {
     test('empty test', () async {
       final file = File(GetMockResponse.emptyJsonFile);
       final json = await (file.readAsString());
-      when(dataSource.getPosts()).thenReturn(json);
       final decoded = jsonDecode(json);
+      when(dataSource.getPosts()).thenReturn(decoded);
       final getPosts = await repository.getPosts();
       final expected = (decoded as List<dynamic>)
           .map((json) => PostListModel.fromJson(json))
@@ -51,7 +51,8 @@ void main() {
       final decodedPass = jsonDecode(passJson);
       final failFile = File(GetMockResponse.failJsonFile);
       final failJson = await (failFile.readAsString());
-      when(dataSource.getPosts()).thenAnswer((_) => failJson);
+      final failDecoded = jsonDecode(failJson);
+      when(dataSource.getPosts()).thenAnswer((_) => failDecoded);
       final getPosts = await repository.getPosts();
       final expected = (decodedPass as List<dynamic>)
           .map((json) => PostListModel.fromJson(json))

@@ -66,6 +66,10 @@ class PostListWidget extends StatelessWidget {
         vertical: measurement.margin(8.0),
         horizontal: measurement.margin(16.0),
       ),
+      padding: EdgeInsets.symmetric(
+        vertical: measurement.padding(8.0),
+        horizontal: measurement.padding(16.0),
+      ),
       decoration: BoxDecoration(
         color: Colors.black12,
         borderRadius: BorderRadius.circular(

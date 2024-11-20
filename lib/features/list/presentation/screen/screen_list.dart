@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tdd_test/features/list/presentation/bloc/list_bloc.dart';
+import 'package:tdd_test/features/list/presentation/widget/post_list.dart';
 
 class ListScreen extends StatefulWidget {
   const ListScreen({super.key});
@@ -20,26 +21,11 @@ class _ListScreenState extends State<ListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _appBar(),
-      body: _pageBody(),
+      body: const PostListWidget(),
     );
   }
 
   AppBar _appBar() {
     return AppBar();
-  }
-
-  Container _pageBody() {
-    return Container(
-      decoration: const ShapeDecoration(
-        color: Colors.lightBlue,
-        shape: Border.symmetric(
-          vertical: BorderSide(color: Colors.redAccent),
-          horizontal: BorderSide(color: Colors.cyanAccent),
-        ),
-      ),
-      child: const Center(
-        child: Text('AuthenticationScreen'),
-      ),
-    );
   }
 }

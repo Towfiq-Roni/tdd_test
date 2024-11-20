@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tdd_test/features/list/domain/entity/post_list_entity.dart';
+import 'package:tdd_test/features/list/data/model/post_list_model.dart';
 import 'package:tdd_test/features/list/presentation/bloc/list_bloc.dart';
 import 'package:tdd_test/res/res_export.dart';
 
@@ -10,25 +10,24 @@ class PostListWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ListBloc, ListState>(
-      builder: (context, state) {
+      builder: (blocContext, state) {
         return ListView.separated(
-          itemBuilder: (BuildContext context, int index) {
+          itemBuilder: (BuildContext listContext, int index) {
             return buildContainer(
-              context,
-              state.postList?.postList?[index] ??
-                  const PostEntity().emptyState(),
+              context: context,
+              entity: state.postList?[index] ?? PostListModel(),
             );
           },
           separatorBuilder: (BuildContext context, int index) {
             return const Divider();
           },
-          itemCount: state.postList?.postList?.length ?? 0,
+          itemCount: state.postList?.length ?? 0,
         );
       },
     );
   }
 
-  Column buildColumn(BuildContext context, PostEntity? entity) {
+  Column buildColumn({required BuildContext context, PostListModel? entity}) {
     return Column(
       children: [
         buildRow(
@@ -60,7 +59,8 @@ class PostListWidget extends StatelessWidget {
     );
   }
 
-  Container buildContainer(BuildContext context, PostEntity entity) {
+  Container buildContainer(
+      {required BuildContext context, PostListModel? entity}) {
     return Container(
       margin: EdgeInsets.symmetric(
         vertical: measurement.margin(8.0),
@@ -72,7 +72,7 @@ class PostListWidget extends StatelessWidget {
           measurement.radius(16),
         ),
       ),
-      child: buildColumn(context, entity),
+      child: buildColumn(context: context, entity: entity),
     );
   }
 }

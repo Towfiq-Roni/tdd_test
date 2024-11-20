@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tdd_test/features/list/presentation/bloc/list_bloc.dart';
 
 class ListScreen extends StatefulWidget {
   const ListScreen({super.key});
@@ -8,11 +10,11 @@ class ListScreen extends StatefulWidget {
 }
 
 class _ListScreenState extends State<ListScreen> {
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   context.read<ListBloc>().add(GetListEvent());
-  // }
+  @override
+  void initState() {
+    super.initState();
+    context.read<ListBloc>().add(GetListEvent());
+  }
 
   @override
   Widget build(BuildContext context) {

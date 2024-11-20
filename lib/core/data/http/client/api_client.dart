@@ -10,8 +10,6 @@ abstract class ApiClient {
   dynamic invokeApi(String path, HTTPType method,
       {Map<String, dynamic>? data,
       bool? isAuth,
-      bool? isXApi,
-      bool? isPaymentXApi,
       bool? isRefresh,
       bool isFile = false,
       Map<String, dynamic>? queryParams});
@@ -44,11 +42,9 @@ class ApiClientImpl extends ApiClient {
             method: method.name.toUpperCase().toString(),
             extra: <String, dynamic>{
               'isAuth': isAuth ?? false,
-              'isXApi': isXApi ?? false,
-              'isPaymentXApi': isPaymentXApi ?? false,
             }),
       );
-      return Right(response.data);
+      return response.data;
     } on DioException catch (error) {
       APIFailure apiFailure = _handleError(error);
       return Left(apiFailure);

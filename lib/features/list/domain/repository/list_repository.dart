@@ -1,5 +1,5 @@
-import 'package:tdd_test/features/list/domain/entity/post_list_entity.dart';
+import 'package:tdd_test/features/list/data/model/post_list_model.dart';
 
 abstract class ListRepository {
-  Future<PostListEntity> getPosts();
+  Future<List<PostListModel>> getPosts();
 }

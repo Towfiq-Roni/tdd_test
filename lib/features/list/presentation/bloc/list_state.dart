@@ -3,7 +3,7 @@ part of 'list_bloc.dart';
 class ListState extends Equatable {
   final StateStatus status;
   final String? message;
-  final PostListEntity? postList;
+  final List<PostListModel>? postList;
 
   const ListState({
     this.status = StateStatus.initial,
@@ -14,7 +14,7 @@ class ListState extends Equatable {
   ListState copyWith({
     StateStatus? status,
     String? message,
-    PostListEntity? postList,
+    List<PostListModel>? postList,
   }) {
     return ListState(
       status: status ?? this.status,

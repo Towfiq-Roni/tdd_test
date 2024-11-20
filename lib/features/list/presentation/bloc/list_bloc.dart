@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tdd_test/core/status/state_status.dart';
-import 'package:tdd_test/features/list/domain/entity/post_list_entity.dart';
+import 'package:tdd_test/features/list/data/model/post_list_model.dart';
 import 'package:tdd_test/features/list/domain/usecase/get_post_list.dart';
 
 part 'list_event.dart';
@@ -19,7 +19,7 @@ class ListBloc extends Bloc<ListEvent, ListState> {
     emit(state.copyWith(status: StateStatus.loading));
     try {
       var getList = await getPostList();
-      if (getList?.postList == null || getList!.postList!.isEmpty) {
+      if (getList == null || getList.isEmpty) {
         emit(state.copyWith(
             status: StateStatus.error, message: INVALID_MESSAGE));
         return;

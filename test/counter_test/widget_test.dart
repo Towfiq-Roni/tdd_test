@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:integration_test/integration_test.dart';
 import 'package:mockito/annotations.dart';
 // import 'package:mockito/mockito.dart';
 import 'package:mocktail/mocktail.dart';
@@ -15,6 +16,7 @@ import 'package:tdd_test/main.dart';
 
 @GenerateMocks([CounterBloc])
 void main() {
+  IntegrationTestWidgetsFlutterBinding.ensureInitialized();
   group('Counter navigation test', () {
     late CounterBloc counterBloc;
 
@@ -26,6 +28,7 @@ void main() {
     });
 
     testWidgets('Navigation success test', (WidgetTester tester) async {
+      WidgetsFlutterBinding.ensureInitialized();
       when(() => const CounterState()).thenAnswerWithVoid();
 
       await tester.pumpWidget(const AppBlocProvider());

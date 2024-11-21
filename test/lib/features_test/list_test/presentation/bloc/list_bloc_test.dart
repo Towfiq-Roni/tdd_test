@@ -60,10 +60,4 @@ void main() {
       expectLater(bloc.stream, emitsInOrder(expected));
     });
   });
-
-  group('navigation to home ', () {
-    test('navigated test', () {});
-
-    test('not navigated test', () {});
-  });
 }

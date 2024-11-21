@@ -26,6 +26,8 @@ class _ListScreenState extends State<ListScreen> {
   }
 
   AppBar _appBar() {
-    return AppBar();
+    return AppBar(
+      title: const Text('List Items'),
+    );
   }
 }

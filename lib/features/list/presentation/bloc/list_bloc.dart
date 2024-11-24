@@ -12,6 +12,7 @@ class ListBloc extends Bloc<ListEvent, ListState> {
 
   ListBloc(this.getPostList) : super(const ListState()) {
     on<GetListEvent>(_getListEvent);
+    on<NavigateToHomeEvent>(_navigateToHomeEvent);
   }
 
   Future<void> _getListEvent(
@@ -27,6 +28,19 @@ class ListBloc extends Bloc<ListEvent, ListState> {
       emit(state.copyWith(
         postList: getList,
         status: StateStatus.loaded,
+      ));
+    } on Exception catch (e) {
+      emit(state.copyWith(status: StateStatus.error, message: INVALID_MESSAGE));
+    }
+  }
+
+  Future<void> _navigateToHomeEvent(
+      NavigateToHomeEvent event, Emitter<ListState> emit) async {
+    emit(state.copyWith(status: StateStatus.loading));
+    try {
+      emit(state.copyWith(
+        postModel: event.postModel,
+        status: StateStatus.success,
       ));
     } on Exception catch (e) {
       emit(state.copyWith(status: StateStatus.error, message: INVALID_MESSAGE));

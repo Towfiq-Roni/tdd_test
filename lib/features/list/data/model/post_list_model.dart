@@ -73,6 +73,15 @@ class PostListModel extends Equatable {
     );
   }
 
+  factory PostListModel.empty() {
+    return PostListModel(
+      userId: 0,
+      id: 0,
+      title: 'Empty',
+      body: 'Empty',
+    );
+  }
+
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['userId'] = userId;

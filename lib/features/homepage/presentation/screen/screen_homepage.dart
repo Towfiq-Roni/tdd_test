@@ -1,10 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tdd_test/features/homepage/presentation/bloc/homepage_bloc.dart';
-import 'package:tdd_test/features/homepage/presentation/widget/item_list.dart';
+import 'package:tdd_test/features/list/data/model/post_list_model.dart';
+import 'package:tdd_test/features/list/presentation/bloc/list_bloc.dart';
+import 'package:tdd_test/res/res_export.dart';
 
-class ScreenHomepage extends StatelessWidget {
+class ScreenHomepage extends StatefulWidget {
   const ScreenHomepage({super.key});
+
+  @override
+  State<ScreenHomepage> createState() => _ScreenHomepageState();
+}
+
+class _ScreenHomepageState extends State<ScreenHomepage> {
+  late PostListModel post;
+
+  @override
+  void initState() {
+    super.initState();
+    post = context.read<ListBloc>().state.postModel ?? PostListModel.empty();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,25 +38,28 @@ class ScreenHomepage extends StatelessWidget {
 
   Container _pageBody() {
     return Container(
-      decoration: BoxDecoration(
-        color: Colors.cyanAccent,
+      margin: EdgeInsets.symmetric(
+        vertical: measurement.margin(12),
+        horizontal: measurement.margin(16),
       ),
-      alignment: Alignment.topCenter,
-      margin: const EdgeInsets.symmetric(
-        vertical: 12,
-        horizontal: 16,
+      child: Column(
+        children: [
+          buildText(itemName: 'User ID: ', textItem: post.userId),
+          buildText(itemName: 'Post ID: ', textItem: post.id),
+          buildText(itemName: 'Post Title: ', textItem: post.title),
+          buildText(itemName: 'Post Body: ', textItem: post.body),
+        ],
       ),
-      child: const ItemList(),
     );
   }
 
-  ElevatedButton navigateToButton(BuildContext context) {
-    return ElevatedButton(
-      key: const Key('navigate_auth_key'),
-      onPressed: () {
-        context.read<HomepageBloc>().add(NavigateEvent());
-      },
-      child: const Text('Jump To Authentication'),
+  Row buildText({String? itemName, dynamic textItem}) {
+    return Row(
+      children: [
+        Text('$itemName'),
+        SizedBox(width: measurement.sizeByWidth(16)),
+        Text('$textItem'),
+      ],
     );
   }
 }

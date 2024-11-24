@@ -7,4 +7,11 @@ sealed class ListEvent extends Equatable {
 
 class GetListEvent extends ListEvent {}
 
-class NavigateToHome extends ListEvent {}
+class NavigateToHomeEvent extends ListEvent {
+  final PostListModel? postModel;
+
+  NavigateToHomeEvent({this.postModel});
+
+  @override
+  List<Object?> get props => [postModel];
+}

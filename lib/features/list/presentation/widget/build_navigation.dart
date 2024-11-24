@@ -8,6 +8,10 @@ class BuildNavigation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      onTap: () {
+        context.read<ListBloc>().add(NavigateToHomeEvent(postModel: entity));
+        NavigationService.navigateTo(RoutePaths.homeScreen);
+      },
       child: BuildContainer(
         entity: entity ?? PostListModel(),
       ),

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tdd_test/features/list/data/model/post_list_model.dart';
 import 'package:tdd_test/features/list/presentation/bloc/list_bloc.dart';
 import 'package:tdd_test/res/res_export.dart';
+import 'package:tdd_test/services/navigation/navigation_service.dart';
 
 part 'build_column.dart';
 part 'build_container.dart';

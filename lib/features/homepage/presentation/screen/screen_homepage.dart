@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tdd_test/features/homepage/presentation/bloc/homepage_bloc.dart';
 import 'package:tdd_test/features/list/data/model/post_list_model.dart';
 import 'package:tdd_test/features/list/presentation/bloc/list_bloc.dart';
 import 'package:tdd_test/res/res_export.dart';
@@ -38,6 +37,7 @@ class _ScreenHomepageState extends State<ScreenHomepage> {
 
   Container _pageBody() {
     return Container(
+      key: const Key('post_item'),
       margin: EdgeInsets.symmetric(
         vertical: measurement.margin(12),
         horizontal: measurement.margin(16),
@@ -56,9 +56,9 @@ class _ScreenHomepageState extends State<ScreenHomepage> {
   Row buildText({String? itemName, dynamic textItem}) {
     return Row(
       children: [
-        Text('$itemName'),
+        Expanded(child: Text('$itemName')),
         SizedBox(width: measurement.sizeByWidth(16)),
-        Text('$textItem'),
+        Expanded(child: Text('$textItem')),
       ],
     );
   }
